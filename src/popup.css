@@ -1,3 +1,10 @@
+/* lets declare some color constants */
+:root {
+  --black: #161606;
+  --purple: #78289e;
+  --orange-light: #fcd9d9;
+}
+
 /* normalize css starts here */
 *,
 *::before,
@@ -9,84 +16,52 @@
 /* normalize css ends here */
 
 html {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
-    sans-serif;
-  color: #222;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
 }
 
 body {
-  width: 350px;
-  height: 300px;
+  width: 20rem;
+  height: 25rem;
 }
 
 .app {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   text-align: center;
-  padding: 20px;
+  background-color: var(--black);
+  font-size: 17px;
 }
 
 .title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  font-size: 12px;
-}
-
-code {
-  font-size: 12px;
-  font-family: inherit;
-  background-color: rgba(254, 237, 185, 0.3);
-  padding: 2px 4px;
-  border-radius: 2px;
-}
-
-.counter-label {
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-
-.counter {
-  font-size: 36px;
-  font-weight: 700;
-}
-
-.button-container {
+  color: var(--orange-light);
+  text-align: center;
   margin-top: 15px;
 }
 
+.button-container {
+  text-align: center;
+}
+
 .button {
-  border: 0;
-  display: inline-block;
-  padding: 10px 20px;
-  margin-right: 4px;
-  margin-left: 4px;
-  background-color: bisque;
-  font-size: 16px;
+  padding: 10px 15px;
+  color: var(--orange-light);
+  background-color: var(--purple);
+  border: none;
+  font-size: 18px;
   cursor: pointer;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: transform 0.2s ease;
-  user-select: none;
 }
 
-.button:focus {
-  outline: none;
+.footer {
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  background-color: var(--purple);
+  color: var(--orange-light);
 }
 
-.button:hover {
-  transform: scale(1.1);
-}
-
-.divider {
-  margin: 30px auto 25px;
-  width: 50px;
-  border: 0.5px dashed #000;
-  opacity: 0.1;
+.footer a {
+  color: var(--orange-light);
 }

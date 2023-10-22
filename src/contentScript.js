@@ -11,33 +11,35 @@
 // For more information on Content Scripts,
 // See https://developer.chrome.com/extensions/content_scripts
 
-// Log `title` of current active web page
-const pageTitle = document.head.getElementsByTagName('title')[0].innerHTML;
-console.log(
-  `Page title is: '${pageTitle}' - evaluated by Chrome extension's 'contentScript.js' file`
-);
+// DECLARE html selectors
+const ENCLOSING_ELEMENT_SELECTOR = '.lecture-bookmark-v2--content-container--2f_Tg';
 
-// Communicate with background file by sending a message
-chrome.runtime.sendMessage(
-  {
-    type: 'GREETINGS',
-    payload: {
-      message: 'Hello, my name is Con. I am from ContentScript.',
-    },
-  },
-  (response) => {
-    console.log(response.message);
-  }
-);
-
-// Listen for message
+// Listen for message from popup.html and pass download request to background job/service worker
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'COUNT') {
-    console.log(`Current count is ${request.payload.count}`);
+  console.log(request);
+  if (request.type === 'Download') {
+    let enclosing_tags = document.querySelectorAll(ENCLOSING_ELEMENT_SELECTOR);
+
+    /* Notes not found */
+    if (enclosing_tags.length === 0) {
+      alert('No notes found!!');
+      return;
+    }
+    let newParentNode = document.createElement('div');
+
+    enclosing_tags.forEach((tag) => {
+      newParentNode.appendChild(tag.children[0]);
+    });
+
+    let notes_html = newParentNode.outerHTML;
+
+    let message = { type: 'Download', payload: notes_html };
+    console.log(message);
+
+    chrome.runtime.sendMessage(message);
   }
 
   // Send an empty response
   // See https://github.com/mozilla/webextension-polyfill/issues/130#issuecomment-531531890
   sendResponse({});
-  return true;
 });
