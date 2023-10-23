@@ -18,10 +18,17 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     console.log('====== download request initiated =========');
     let markdown = generate_markdown(request.payload);
     console.log(markdown);
-    let blob = new Blob([markdown], { type: 'text/plain' });
-    console.log(blob);
-    let url = URL.createObjectURL(blob);
-
-    chrome.downloads.download({ url: url, saveAs: true });
+    /* service workers since manifest v3 does not allow to url for blob
+     * so as work around we will generate data uri with string. One
+     * limitation is we can only have data uri of size 64 MB but
+     * its a lot for plain text with no media
+     *
+     * let blob = new Blob([markdown], { type: 'text/plain' });
+     * console.log(blob);
+     * let url = URL.createObjectURL(blob);
+     */
+    let url = `data:text/markdown,${markdown}`;
+    let filename = 'test.md';
+    chrome.downloads.download({ url: url, saveAs: true, filename: filename });
   }
 });

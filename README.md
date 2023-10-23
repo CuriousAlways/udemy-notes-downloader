@@ -5,10 +5,10 @@ Udemy notes downloader lets you download your course notes in markdown format.
 ## Features
 
 - [x] download in markdown
-- [ ] download in pdf
+- [x] sorting order
 - [x] multi-language code highlight
-- [x] I18n
-- [ ] sorting order
+- [ ] download in pdf
+- [ ] I18n
 
 ## Install
 

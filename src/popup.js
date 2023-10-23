@@ -1,7 +1,13 @@
 'use strict';
+/* importing css so that changes in css file could be picked to initiate recompiling during development */
+import './popup.css';
+import validCodeLang from './helpers/constants';
 
 (function () {
-  const downloadBtn = document.querySelector('#downloadBtn');
+  const downloadBtn = document.querySelector('#download-btn');
+  const sortOrder = document.querySelector('#sort-order');
+  const addHorizontalRule = document.querySelector('#horizontal-rule');
+  const codeFormatLanguage = document.querySelector('#code-lang');
   const links = document.querySelectorAll('a');
   const UDEMY_HOST = 'www.udemy.com';
 
@@ -25,9 +31,8 @@
         func: () => alert(`Download action only applicable on www.udemy.com`),
       });
     } else {
-      let message = { type: 'Download' };
-      let response = await chrome.tabs.sendMessage(tabs[0].id, message);
-      console.log(response);
+      let message = { type: 'Download', payload: generatePayload() };
+      await chrome.tabs.sendMessage(tabs[0].id, message);
     }
   });
 
@@ -36,5 +41,13 @@
     let url = new URL(tab.url);
 
     return url.host === UDEMY_HOST;
+  }
+
+  function generatePayload() {
+    let reverseSortOrder = sortOrder.checked;
+    let horizontalRule = addHorizontalRule.checked;
+    let codeLang = validCodeLang.includes(codeFormatLanguage.value) ? codeFormatLanguage.value : 'javaScript';
+
+    return { reverseSort: reverseSortOrder, addHorizontalRule: horizontalRule, codeLang: codeLang };
   }
 })();

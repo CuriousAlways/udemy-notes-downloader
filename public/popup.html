@@ -8,12 +8,43 @@
   <body>
     <div class="app">
       <p class="title">Download Udemy Notes</p>
-      <div class="button-container">
-        <button id="downloadBtn" class="button">Download</button>
-      </div>
-        <div class="footer">
-          <p> Made with 💖 by <a href="https://github.com/CuriousAlways">avid</a></p>
+      <div class="inner-container">
+        <div class="custom-options">
+          <div class="option-container">
+            <label for="sort-order" class="input-container"> sort notes in reverse
+              <input id="sort-order" name="sort-order" type="checkbox" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-container">
+            <label for="horizontal-rule" class="input-container"> Add horizontal b/w each section
+              <input id="horizontal-rule" name="horizontal-rule" type="checkbox" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-container">
+            <div class="select">
+              <select name="code-lang" id="code-lang">
+                <option selected disabled>code formatting language</option>
+                <option value="javaScript">javaScript</option>
+                <option value="ruby">ruby</option>
+                <option value="python">python</option>
+                <option value="java">java</option>
+                <option value="c">c</option>
+                <option value="cpp">cpp</option>
+                <option value="html">html</option>
+                <option value="css">css</option>
+              </select>
+            </div>
+          </div>
         </div>
+        <div class="button-container">
+          <button id="download-btn" class="button">Download</button>
+        </div>
+      </div>
+      <div class="footer">
+        <p> Made with 💖 by <a href="https://github.com/CuriousAlways">avid</a></p>
+      </div>
       </div>
     </div>
 
