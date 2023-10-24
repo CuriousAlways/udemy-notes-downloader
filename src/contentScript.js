@@ -23,7 +23,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     /* Notes not found */
     if (enclosing_tags.length === 0) {
-      alert('No notes found!!');
+      let alert_message = `No notes found!!! plz ensure your are on udemy course notes tab.`;
+      alert(alert_message);
       return;
     }
     let newParentNode = document.createElement('div');

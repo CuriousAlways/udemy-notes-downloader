@@ -23,7 +23,7 @@ import validCodeLang from './helpers/constants';
   downloadBtn.addEventListener('click', async () => {
     let tabs = await chrome.tabs.query({ active: true, currentWindow: true });
 
-    if (!validateUrl(tabs[0])) {
+    if (!valideUrl(tabs[0])) {
       /* execution context is lost when chrome executes function passed to execute script
        ** because of serialization and de-serialization */
       chrome.scripting.executeScript({
@@ -37,7 +37,7 @@ import validCodeLang from './helpers/constants';
   });
 
   /* TODO: Update to check notes tab is open */
-  function validateUrl(tab) {
+  function valideUrl(tab) {
     let url = new URL(tab.url);
 
     return url.host === UDEMY_HOST;
