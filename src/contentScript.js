@@ -14,12 +14,12 @@
 import formatcode from './helpers/format_code';
 
 // DECLARE html selectors
-const ENCLOSING_ELEMENT_SELECTOR = '.lecture-bookmark-v2--content-container--2f_Tg';
+const ENCLOSING_ELEMENT_SELECTOR = 'lecture-bookmark-v2--content-container--';
 
 // Listen for message from popup.html and pass download request to background job/service worker
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'Download') {
-    let enclosing_tags = document.querySelectorAll(ENCLOSING_ELEMENT_SELECTOR);
+    let enclosing_tags = document.querySelectorAll(`[class^='${ENCLOSING_ELEMENT_SELECTOR}']`);
 
     /* Notes not found */
     if (enclosing_tags.length === 0) {
