@@ -2,6 +2,7 @@
 /* importing css so that changes in css file could be picked to initiate recompiling during development */
 import './popup.css';
 import validCodeLang from './helpers/constants';
+import events from './helpers/events';
 
 (function () {
   const downloadBtn = document.querySelector('#download-btn');
@@ -31,7 +32,7 @@ import validCodeLang from './helpers/constants';
         func: () => alert(`Download action only applicable on www.udemy.com`),
       });
     } else {
-      let message = { type: 'Download', payload: generatePayload() };
+      let message = { type: events.download, payload: generatePayload() };
       await chrome.tabs.sendMessage(tabs[0].id, message);
     }
   });

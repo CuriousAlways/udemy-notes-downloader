@@ -12,32 +12,15 @@
 // See https://developer.chrome.com/extensions/content_scripts
 
 import formatcode from './helpers/format_code';
+import events from './helpers/events';
 
 // DECLARE html selectors
 const ENCLOSING_ELEMENT_SELECTOR = 'lecture-bookmark-v2--content-container--';
 
 // Listen for message from popup.html and pass download request to background job/service worker
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'Download') {
-    let enclosing_tags = document.querySelectorAll(`[class^='${ENCLOSING_ELEMENT_SELECTOR}']`);
-
-    /* Notes not found */
-    if (enclosing_tags.length === 0) {
-      let alert_message = `No notes found!!! plz ensure your are on udemy course notes tab.`;
-      alert(alert_message);
-      return;
-    }
-    let newParentNode = document.createElement('div');
-    let sortOrder = request.payload['reverseSort'] || false;
-
-    sortedNodeList(enclosing_tags, sortOrder).forEach((tag) => {
-      let cloned_tag = tag.cloneNode(true); // deep clone
-      let formatted_node = formatcode(cloned_tag, request.payload);
-      newParentNode.appendChild(formatted_node);
-    });
-
-    let message = { type: 'Download', payload: newParentNode.outerHTML };
-    chrome.runtime.sendMessage(message);
+  if (request.type === events.download) {
+    handleDownloadEvent(request)
   }
 
   // Send an empty response
@@ -51,3 +34,28 @@ returns an array of dom nodes
 function sortedNodeList(nodeList, reverse = false) {
   return reverse ? [...nodeList].reverse() : [...nodeList];
 }
+
+// handle different events
+// event:  DOWNLOAD
+function handleDownloadEvent(request) {
+  let enclosing_tags = document.querySelectorAll(`[class^='${ENCLOSING_ELEMENT_SELECTOR}']`);
+
+  /* Notes not found */
+  if (enclosing_tags.length === 0) {
+    let alert_message = `No notes found!!! plz ensure your are on udemy course notes tab.`;
+    alert(alert_message);
+    return;
+  }
+  let newParentNode = document.createElement('div');
+  let sortOrder = request.payload['reverseSort'] || false;
+
+  sortedNodeList(enclosing_tags, sortOrder).forEach((tag) => {
+    let cloned_tag = tag.cloneNode(true); // deep clone
+    let formatted_node = formatcode(cloned_tag, request.payload);
+    newParentNode.appendChild(formatted_node);
+  });
+
+  let message = { type: events.download, payload: newParentNode.outerHTML };
+  chrome.runtime.sendMessage(message);
+}
+
