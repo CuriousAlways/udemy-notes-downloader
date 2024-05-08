@@ -10,7 +10,7 @@ import events from './helpers/events';
   const addHorizontalRule = document.querySelector('#horizontal-rule');
   const codeFormatLanguage = document.querySelector('#code-lang');
   const links = document.querySelectorAll('a');
-  const UDEMY_HOST = 'www.udemy.com';
+  const UDEMY_HOST_REGEXP = /(?:[a-zA-Z0-9\-]{0,63}\.)?udemy\.com/;
 
   /* make links clickable */
   links.forEach((link) => {
@@ -41,7 +41,7 @@ import events from './helpers/events';
   function valideUrl(tab) {
     let url = new URL(tab.url);
 
-    return url.host === UDEMY_HOST;
+    return UDEMY_HOST_REGEXP.test(url.host);
   }
 
   function generatePayload() {
