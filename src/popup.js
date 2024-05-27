@@ -10,7 +10,8 @@ import events from './helpers/events';
   const addHorizontalRule = document.querySelector('#horizontal-rule');
   const codeFormatLanguage = document.querySelector('#code-lang');
   const links = document.querySelectorAll('a');
-  const UDEMY_HOST = 'www.udemy.com';
+  //const UDEMY_REGEX = /^https:\/\/(?:www\.|.*?\.)?udemy\.com\/.*$/i;
+  const UDEMY_HOST_REGEX = /^(?:.*?)?\.udemy\.com$/i;
 
   /* make links clickable */
   links.forEach((link) => {
@@ -29,7 +30,7 @@ import events from './helpers/events';
        ** because of serialization and de-serialization */
       chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
-        func: () => alert(`Download action only applicable on www.udemy.com`),
+        func: () => alert(`Download action only applicable on udemy.com websites.`),
       });
     } else {
       let message = { type: events.download, payload: generatePayload() };
@@ -41,7 +42,7 @@ import events from './helpers/events';
   function valideUrl(tab) {
     let url = new URL(tab.url);
 
-    return url.host === UDEMY_HOST;
+    return UDEMY_HOST_REGEX.test(url.host);
   }
 
   function generatePayload() {

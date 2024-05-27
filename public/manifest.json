@@ -19,7 +19,7 @@
   "permissions": ["activeTab", "scripting", "downloads"],
   "content_scripts": [
     {
-      "matches": ["https://www.udemy.com/*"],
+      "matches": ["https://*.udemy.com/*"],
       "run_at": "document_idle",
       "js": ["contentScript.js"]
     }
