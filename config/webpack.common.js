@@ -55,6 +55,9 @@ const common = {
         {
           from: '**/*',
           context: 'public',
+          globOptions: {
+            ignore: ['**/manifest*.json'], //Need special handling for manifest.json for chrome/firefox, and can't seem to override later when merging
+          }
         },
       ],
     }),

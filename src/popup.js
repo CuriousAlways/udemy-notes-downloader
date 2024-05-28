@@ -13,6 +13,10 @@ import events from './helpers/events';
   //const UDEMY_REGEX = /^https:\/\/(?:www\.|.*?\.)?udemy\.com\/.*$/i;
   const UDEMY_HOST_REGEX = /^(?:.*?)?\.udemy\.com$/i;
 
+  //This script needs to behave differently for firefox, for now this is a working way to detect which browser it's running in
+  //Better to have a config file that holds a platform variable but this works for now
+  const FIREFOX = typeof browser == 'object' ? true : false;
+
   /* make links clickable */
   links.forEach((link) => {
     link.addEventListener('click', () => {
@@ -23,8 +27,7 @@ import events from './helpers/events';
 
   /* communicate download request to content script */
   downloadBtn.addEventListener('click', async () => {
-    let tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-
+    let tabs = FIREFOX ? await browser.tabs.query({ active: true, currentWindow: true }) : await chrome.tabs.query({ active: true, currentWindow: true });
     if (!valideUrl(tabs[0])) {
       /* execution context is lost when chrome executes function passed to execute script
        ** because of serialization and de-serialization */
