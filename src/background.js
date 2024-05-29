@@ -3,9 +3,9 @@
 import events from './helpers/events';
 import { NodeHtmlMarkdown } from 'node-html-markdown';
 
-//This script needs to behave differently for firefox, for now this is a working way to detect which browser it's running in
-  //Better to have a config file that holds a platform variable but this works for now
-  const FIREFOX = typeof browser == 'object' ? true : false;
+//This script needs to behave differently for Firefox, for now this is a working way to detect which browser it's running in
+//Better to have a config file that holds a platform variable but this works for now
+const FIREFOX = typeof browser == 'object' ? true : false;
 
 // With background scripts you can communicate with popup
 // and contentScript files.
@@ -41,6 +41,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
     const blob = generate_blob_from_string(markdown, "text/markdown");
     if (FIREFOX) {
+      //Firefox has no restrictions creating a url for a blob so we don't need to do anything else
       browser.downloads.download({ url: URL.createObjectURL(blob), saveAs: true, filename: 'notes.md' })
     }
     else {
