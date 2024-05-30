@@ -10,7 +10,12 @@ import events from './helpers/events';
   const addHorizontalRule = document.querySelector('#horizontal-rule');
   const codeFormatLanguage = document.querySelector('#code-lang');
   const links = document.querySelectorAll('a');
-  const UDEMY_HOST = 'www.udemy.com';
+  //const UDEMY_REGEX = /^https:\/\/(?:www\.|.*?\.)?udemy\.com\/.*$/i;
+  const UDEMY_HOST_REGEX = /^(?:.*?)?\.udemy\.com$/i;
+
+  //This script needs to behave differently for firefox, for now this is a working way to detect which browser it's running in
+  //Better to have a config file that holds a platform variable but this works for now
+  const FIREFOX = typeof browser == 'object' ? true : false;
 
   /* make links clickable */
   links.forEach((link) => {
@@ -22,14 +27,13 @@ import events from './helpers/events';
 
   /* communicate download request to content script */
   downloadBtn.addEventListener('click', async () => {
-    let tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-
+    let tabs = FIREFOX ? await browser.tabs.query({ active: true, currentWindow: true }) : await chrome.tabs.query({ active: true, currentWindow: true });
     if (!valideUrl(tabs[0])) {
       /* execution context is lost when chrome executes function passed to execute script
        ** because of serialization and de-serialization */
       chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
-        func: () => alert(`Download action only applicable on www.udemy.com`),
+        func: () => alert(`Download action only applicable on udemy.com websites.`),
       });
     } else {
       let message = { type: events.download, payload: generatePayload() };
@@ -41,7 +45,7 @@ import events from './helpers/events';
   function valideUrl(tab) {
     let url = new URL(tab.url);
 
-    return url.host === UDEMY_HOST;
+    return UDEMY_HOST_REGEX.test(url.host);
   }
 
   function generatePayload() {

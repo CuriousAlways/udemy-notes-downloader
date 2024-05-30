@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Udemy Notes Downloader",
   "version": "0.1.1",
   "description": "Easily download notes you have created on udemy",
@@ -10,9 +10,9 @@
     "128": "icons/icon_128.png"
   },
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"]
   },
-  "action": {
+  "browser_action": {
     "default_title": "Udemy Notes Downloader",
     "default_popup": "popup.html"
   },
@@ -23,5 +23,12 @@
       "run_at": "document_idle",
       "js": ["contentScript.js"]
     }
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{236c4cbf-debc-4a56-ae39-3f7740a3c8b4}",
+      "strict_min_version": "105.0"
+    }
+  }
+  
 }

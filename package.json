@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "watch": "webpack --mode=development --watch --config config/webpack.config.js",
-    "build": "webpack --mode=production --config config/webpack.config.js",
+    "build": "npm run build_chrome && npm run build_firefox",
+    "build_chrome": "webpack --mode=production --config config/webpack.config.js",
+    "build_firefox": "webpack --env target_browser=firefox --mode=production --config config/webpack.config.js",
     "pack": "node pack.js",
     "repack": "npm run build && npm run pack",
     "format": "prettier --write --ignore-unknown \"{config,public,src}/**/*.{html,css,js,ts,json}\""
