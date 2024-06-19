@@ -1,3 +1,21 @@
-const validCodeLang = ['ruby', 'python', 'javaScript', 'c', 'cpp', 'html', 'css', 'typeScript'];
+const validCodeLang = [
+  'javaScript',
+  'typeScript',
+  'ruby',
+  'python',
+  'java',
+  'c',
+  'cpp',
+  'csharp',
+  'html',
+  'css',
+  'bash',
+  'go',
+  'sql',
+  'php',
+  'kotlin',
+  'swift',
+  'rust',
+];
 
 export default validCodeLang;
