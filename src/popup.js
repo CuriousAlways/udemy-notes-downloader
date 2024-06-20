@@ -8,6 +8,7 @@ import events from './helpers/events';
   const downloadBtn = document.querySelector('#download-btn');
   const sortOrder = document.querySelector('#sort-order');
   const addHorizontalRule = document.querySelector('#horizontal-rule');
+  const addNoteMetadata = document.querySelector('#note-metadata');
   const codeFormatLanguage = document.querySelector('#code-lang');
   const links = document.querySelectorAll('a');
   const UDEMY_HOST = 'www.udemy.com';
@@ -47,8 +48,14 @@ import events from './helpers/events';
   function generatePayload() {
     let reverseSortOrder = sortOrder.checked;
     let horizontalRule = addHorizontalRule.checked;
+    let noteMetadata = addNoteMetadata.checked;
     let codeLang = validCodeLang.includes(codeFormatLanguage.value) ? codeFormatLanguage.value : 'javaScript';
 
-    return { reverseSort: reverseSortOrder, addHorizontalRule: horizontalRule, codeLang: codeLang };
+    return {
+      reverseSort: reverseSortOrder,
+      addHorizontalRule: horizontalRule,
+      noteMetadata: noteMetadata,
+      codeLang: codeLang,
+    };
   }
 })();

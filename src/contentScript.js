@@ -11,16 +11,21 @@
 // For more information on Content Scripts,
 // See https://developer.chrome.com/extensions/content_scripts
 
-import formatcode from './helpers/format_code';
 import events from './helpers/events';
+import formatTag from './helpers/formatTag';
 
 // DECLARE html selectors
-const ENCLOSING_ELEMENT_SELECTOR = 'lecture-bookmark-v2--content-container--';
+const ENCLOSING_ELEMENT_SELECTOR = 'lecture-bookmark-v2--row--';
+export const NOTE_CONTENT_SELECTOR = 'lecture-bookmark-v2--content-container--';
+export const NOTE_SECTION_NAME_SELECTOR = 'lecture-bookmark-v2--section--';
+export const NOTE_LESSON_NAME_SELECTOR = 'ud-text-sm';
+export const NOTE_DURATION_ENCLOSING_SELECTOR = 'lecture-bookmark-v2--duration--';
+export const NOTE_DURATION_SELECTOR = 'bookmark-';
 
 // Listen for message from popup.html and pass download request to background job/service worker
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === events.download) {
-    handleDownloadEvent(request)
+    handleDownloadEvent(request);
   }
 
   // Send an empty response
@@ -50,12 +55,11 @@ function handleDownloadEvent(request) {
   let sortOrder = request.payload['reverseSort'] || false;
 
   sortedNodeList(enclosing_tags, sortOrder).forEach((tag) => {
-    let cloned_tag = tag.cloneNode(true); // deep clone
-    let formatted_node = formatcode(cloned_tag, request.payload);
-    newParentNode.appendChild(formatted_node);
+    // Format the notes tag with code formatting as well as optional note metadata title
+    const formattedTag = formatTag(tag, request.payload);
+    newParentNode.append(formattedTag);
   });
 
   let message = { type: events.download, payload: newParentNode.outerHTML };
   chrome.runtime.sendMessage(message);
 }
-

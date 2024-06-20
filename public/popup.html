@@ -1,53 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My Chrome Extension</title>
-    <link rel="stylesheet" href="popup.css" />
-  </head>
-  <body>
-    <div class="app">
-      <p class="title">Download Udemy Notes</p>
-      <div class="inner-container">
-        <div class="custom-options">
-          <div class="option-container">
-            <label for="sort-order" class="input-container"> sort notes in reverse
-              <input id="sort-order" name="sort-order" type="checkbox" />
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div class="option-container">
-            <label for="horizontal-rule" class="input-container"> Add horizontal b/w each section
-              <input id="horizontal-rule" name="horizontal-rule" type="checkbox" />
-              <span class="checkmark"></span>
-            </label>
-          </div>
-          <div class="option-container">
-            <div class="select">
-              <select name="code-lang" id="code-lang">
-                <option selected disabled>code formatting language</option>
-                <option value="javaScript">javaScript</option>
-                <option value="ruby">ruby</option>
-                <option value="python">python</option>
-                <option value="java">java</option>
-                <option value="c">c</option>
-                <option value="cpp">cpp</option>
-                <option value="html">html</option>
-                <option value="css">css</option>
-              </select>
-            </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>My Chrome Extension</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <div class="app">
+    <p class="title">Download Udemy Notes</p>
+    <div class="inner-container">
+      <div class="custom-options">
+        <div class="option-container">
+          <label for="sort-order" class="input-container"> Sort notes in reverse
+            <input id="sort-order" name="sort-order" type="checkbox" />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="option-container">
+          <label for="horizontal-rule" class="input-container"> Add note divider lines
+            <input id="horizontal-rule" name="horizontal-rule" type="checkbox" />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="option-container">
+          <label for="note-metadata" class="input-container"> Add note's metadata
+            <input id="note-metadata" name="note-metadata" type="checkbox" />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="option-container">
+          <div class="select">
+            <select name="code-lang" id="code-lang">
+              <option selected disabled>code formatting language</option>
+              <option value="javaScript">JavaScript</option>
+              <option value="typeScript">TypeScript</option>
+              <option value="ruby">Ruby</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="c">C</option>
+              <option value="cpp">C++</option>
+              <option value="csharp">C&#x23;</option>
+              <option value="html">HTML</option>
+              <option value="css">CSS</option>
+              <option value="bash">Bash</option>
+              <option value="go">Go</option>
+              <option value="sql">SQL</option>
+              <option value="php">PHP</option>
+              <option value="kotlin">Kotlin</option>
+              <option value="swift">Swift</option>
+              <option value="rust">Rust</option>
+            </select>
           </div>
         </div>
-        <div class="button-container">
-          <button id="download-btn" class="button">Download</button>
-        </div>
       </div>
-      <div class="footer">
-        <p> Made with 💖 by <a href="https://github.com/CuriousAlways">avid</a></p>
-      </div>
+      <div class="button-container">
+        <button id="download-btn" class="button">Download</button>
       </div>
     </div>
+    <div class="footer">
+      <p> Made with 💖 by <a href="https://github.com/CuriousAlways">avid</a></p>
+    </div>
+  </div>
+  </div>
 
-    <script src="popup.js" type="module"></script>
-  </body>
+  <script src="popup.js" type="module"></script>
+</body>
+
 </html>
